@@ -4,6 +4,7 @@ name: Romac+ Macropad
 type: shield
 url: https://example.org
 requires: [pro_micro]
+exposes: [i2c_oled]
 features:
   - keys
   - encoder
