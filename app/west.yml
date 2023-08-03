@@ -4,9 +4,11 @@ manifest:
       url-base: https://github.com/zephyrproject-rtos
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: TortoiSeb
+      url-base: https://github.com/TortoiSeb
   projects:
     - name: zephyr
-      remote: zmkfirmware
+      remote: TortoiSeb
       revision: v3.2.0+zmk-fixes
       clone-depth: 1
       import:
