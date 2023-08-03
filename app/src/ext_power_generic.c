@@ -222,11 +222,5 @@ PM_DEVICE_DT_INST_DEFINE(0, ext_power_generic_pm_action);
 DEVICE_DT_INST_DEFINE(0, ext_power_generic_init, PM_DEVICE_DT_INST_GET(0), &data, &config,
                       POST_KERNEL, ZMK_EXT_POWER_INIT_PRIORITY, &api);
 
-#define DISPLAY_INIT_PRIORITY 95
-
-DEVICE_AND_API_INIT(ssd1306, DT_INST_LABEL(0), ssd1306_init,
-            &ssd1306_driver, NULL,
-            POST_KERNEL, DISPLAY_INIT_PRIORITY,
-            &ssd1306_driver_api);
 
 #endif /* DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT) */
