@@ -17,7 +17,7 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     container:
-      image: docker.io/zmkfirmware/zmk-build-arm:3.2
+      image: docker.io/zmkfirmware/zmk-dev-arm:3.2
     needs: compile-matrix
     strategy:
       matrix:
@@ -48,6 +48,11 @@ jobs:
         run: west update
       - name: Export Zephyr CMake package (west zephyr-export)
         run: west zephyr-export
+      - name: Patch Zephyr OLED
+        working-directory: ./zephyr
+        run: |
+          wget https://github.com/zmkfirmware/zmk/files/8009722/zephyr_oled_i2c_fix_full_init.diff.txt
+          git apply zephyr_oled_i2c_fix_full_init.diff.txt
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
