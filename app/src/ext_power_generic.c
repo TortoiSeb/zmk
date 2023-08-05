@@ -13,9 +13,9 @@
 #include <zephyr/kernel.h>
 #include <zephyr/settings/settings.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/drivers/display.h>
 
 #include <drivers/ext_power.h>
+#include <zephyr/drivers/display.h>
 
 #ifndef CONFIG_LVGL_DISPLAY_DEV_NAME
 #define ZMK_DISPLAY_NAME ""
@@ -70,7 +70,6 @@ static void drivers_update_power_state(bool power) {
         if (display != NULL) {
         display_update_ext_power(display, power);
         }
-
 }
 
 static int ext_power_generic_enable(const struct device *dev) {
