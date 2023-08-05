@@ -96,7 +96,7 @@ static int ext_power_generic_disable(const struct device *dev) {
         return -EIO;
     }
     data->status = false;
-    drivers_update_power_state(false);
+    drivers_update_power_state(true);
     return ext_power_save_state();
 }
 
