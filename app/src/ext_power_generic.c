@@ -66,11 +66,11 @@ static void drivers_update_power_state(bool power) {
     LOG_DBG("drivers_update_power_state: %s", power? "true" : "false");
     static const struct device *display;
     display = device_get_binding(ZMK_DISPLAY_NAME);
-    /*
+
         if (display != NULL) {
         display_update_ext_power(display, power);
         }
-    */
+
 }
 
 static int ext_power_generic_enable(const struct device *dev) {
