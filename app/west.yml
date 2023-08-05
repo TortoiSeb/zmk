@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: TortoiSeb
       url-base: https://github.com/TortoiSeb
+    - name: DanielMajoinen
+      url-base: https://github.com/DanielMajoinen
   projects:
     - name: zephyr
       remote: DanielMajoinen
