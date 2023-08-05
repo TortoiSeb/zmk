@@ -8,8 +8,8 @@ manifest:
       url-base: https://github.com/TortoiSeb
   projects:
     - name: zephyr
-      remote: TortoiSeb
-      revision: v3.2.0+zmk-fixes
+      remote: DanielMajoinen
+      revision: v3.2.0+zmk-fixes+oled-fixes
       clone-depth: 1
       import:
         name-blocklist:
