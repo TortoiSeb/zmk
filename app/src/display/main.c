@@ -20,6 +20,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/event_manager.h>
 #include <zmk/events/activity_state_changed.h>
 #include <zmk/display/status_screen.h>
+#include <drivers/ext_power.h>
 
 static const struct device *display = DEVICE_DT_GET(DT_CHOSEN(zephyr_display));
 static bool initialized = false;
@@ -88,6 +89,8 @@ static void stop_display_updates() {
 
 int zmk_display_is_initialized() { return initialized; }
 
+static const struct device *ext_power;
+
 static void initialize_theme() {
 #if IS_ENABLED(CONFIG_LV_USE_THEME_MONO)
     lv_disp_t *disp = lv_disp_get_default();
@@ -108,6 +111,11 @@ void initialize_display(struct k_work *work) {
     }
 
     initialized = true;
+
+    ext_power = device_get_binding("EXT_POWER");
+    if (ext_power == NULL) {
+        LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
+    }
 
     initialize_theme();
 
@@ -138,6 +146,8 @@ int zmk_display_init() {
     return 0;
 }
 
+static bool power = true;
+
 #if IS_ENABLED(CONFIG_ZMK_DISPLAY_BLANK_ON_IDLE)
 int display_event_handler(const zmk_event_t *eh) {
     struct zmk_activity_state_changed *ev = as_zmk_activity_state_changed(eh);
@@ -148,8 +158,16 @@ int display_event_handler(const zmk_event_t *eh) {
     switch (ev->state) {
     case ZMK_ACTIVITY_ACTIVE:
         start_display_updates();
+        if(power == false) {
+            ext_power_enable(ext_power);
+            power = true;
+        }
         break;
     case ZMK_ACTIVITY_IDLE:
+        stop_display_updates();
+        ext_power_disable(ext_power);
+        power = false;
+        break;
     case ZMK_ACTIVITY_SLEEP:
         stop_display_updates();
         break;
