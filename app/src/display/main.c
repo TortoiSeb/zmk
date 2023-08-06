@@ -165,8 +165,6 @@ int display_event_handler(const zmk_event_t *eh) {
         break;
     case ZMK_ACTIVITY_IDLE:
         stop_display_updates();
-        ext_power_disable(ext_power);
-        power = false;
         break;
     case ZMK_ACTIVITY_SLEEP:
         stop_display_updates();
